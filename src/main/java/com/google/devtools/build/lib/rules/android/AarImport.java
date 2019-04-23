@@ -158,6 +158,10 @@ public class AarImport implements RuleConfiguredTargetFactory {
         new JavaCompilationArtifacts.Builder()
             .addRuntimeJar(mergedJar)
             .addCompileTimeJarAsFullJar(mergedJar)
+            // Allow direct dependencies to compile against fully-qualified R classes
+            .addCompileTimeJarAsFullJar(
+                ruleContext.getImplicitOutputArtifact(
+                    AndroidRuleClasses.ANDROID_RESOURCES_CLASS_JAR))
             .setCompileTimeDependencies(jdepsArtifact)
             .build());
 
